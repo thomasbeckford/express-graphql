@@ -7,5 +7,5 @@ Run development enviroment using yarn
 ```
 1. yarn
 2. yarn dev
-3. Navigate to: http://localhost:4000
+3. navigate: http://localhost:4000
 ```
