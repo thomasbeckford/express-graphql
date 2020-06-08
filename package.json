@@ -1,0 +1,35 @@
+{
+  "type": "module",
+  "name": "graphql-express-demo",
+  "version": "1.0.0",
+  "description": "graphql express demo for testing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --experimental-modules src/index.js -e js,graphql,env -w .env -w src --exec babel-node",
+    "start": "NODE_ENV=production node server/"
+  },
+  "author": "David Mráz <david.mraz@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "graphql": "^15.1.0"
+  },
+  "compilerOptions": {
+    "moduleResolution": "node"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/node": "^7.0.0",
+    "@babel/polyfill": "^7.10.1",
+    "@babel/preset-env": "^7.1.0",
+    "babel-node": "^0.0.1-security",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.21.0",
+    "nodemon": "^2.0.4"
+  }
+}
