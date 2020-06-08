@@ -1,3 +1,6 @@
+// Why we use babel?
+// Capability of using recent javaScript features that are not included in the recent Node.js versions.
+
 {
-  "presets": ["stage-0", "es2017"]
+  "presets": ["@babel/preset-env"]
 }
