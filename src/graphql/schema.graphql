@@ -1,0 +1,22 @@
+type Query {
+   getUser: User
+   getUserById(id: ID!): User
+}
+
+type Mutation {
+   createUser(input: CreateUserInput): User
+}
+
+input CreateUserInput {
+    first_name: String
+    last_name: String
+    preferred_name: String
+    phone: String
+}
+
+type User {
+    first_name: String
+    last_name: String
+    preferred_name: String
+    phone: String
+}
