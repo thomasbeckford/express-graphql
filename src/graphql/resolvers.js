@@ -4,10 +4,10 @@ import userMutations from '../user/mutations'
 const resolvers = {
 	Query: {
 		...userQueries,
-   },
-   Mutation: {
-	   ...userMutations
-   }
+	},
+	Mutation: {
+		...userMutations,
+	},
 }
 
 export default resolvers

@@ -10,6 +10,7 @@ Run development enviroment using yarn
 3. navigate: http://localhost:4000
 
 ```
+
 ```
 Para que usamos .nvmrc ?
  Para poder decirle a NODE, con que version queremos correr el server.
@@ -22,22 +23,28 @@ Para que usamos .babelrc ?
  Para tener la capacidad de usar algunas funciones de JavaScript que todavia no estan en NODEJS.
 
 Que es .babelrc?
- 
+
 ```
 
 ```
 Para que usamos .eslintrc ?
- 
+El linter busca los errores en el codigo, mas alla de que pueda dar un formato, se caracteriza por encontrar errores.
+
 ```
 
+```
+Para que usamos .prettierrc ?
+Es la manera de darle "estilo" al codigo, para que podamos tener todo nuestro codigo utilizando el mismo formato.
+
+```
 
 ```
 GraphQL
 ```
 
-```Example mutation```
+`Example mutation`
 
-````mutation{
+`````mutation{
   createUser(input:{
     first_name: "Thomas",
     last_name: "Beckford"
@@ -50,4 +57,4 @@ GraphQL
     phone
   }
 }````
-
+`````

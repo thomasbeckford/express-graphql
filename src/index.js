@@ -1,41 +1,48 @@
 import express from 'express'
 import expressGraphql from 'express-graphql'
+import { join } from 'path'
+import { loadSchemaSync, GraphQLFileLoader, addResolversToSchema } from 'graphql-tools'
 import resolvers from './graphql/resolvers'
-import { join } from 'path';
-import { loadSchemaSync } from '@graphql-tools/load';
-import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
-import { addResolversToSchema } from '@graphql-tools/schema';
-import { models } from './sequelize'
+import { models, currentUserId } from './sequelize'
 
-const schema = loadSchemaSync(join(__dirname, './graphql/*.graphql'), { // Finds all .graphql documents inside here.
-	loaders: [
-	  new GraphQLFileLoader(), // This is for loading the *.graphql file.
-	]
-});
+const pino = require('pino')
+const logger = pino({ prettyPrint: { colorize: true } })
+const context = { models, currentUserId }
 
-const schemaWithResolvers = addResolversToSchema({
-  schema,
-  resolvers,
-});
-
-const loggingMiddleware = (req, res, next) => {
-	console.log('ip:', req.ip);
-	next();
-  }
-
-const app = express()
-app.use(loggingMiddleware);
-app.get('/', (req, res) => {
-	res.json('Go to /graphql to test your queries and mutations!')
+const schema = loadSchemaSync(join(__dirname, './graphql/*.graphql'), {
+	loaders: [new GraphQLFileLoader()],
 })
 
-app.use('/graphql',expressGraphql({
-	schema: schemaWithResolvers,
-	rootValue: global,
-	graphiql: true,
-	context: {models:  models},
-	pretty: true,
-}),
+const schemaWithResolvers = addResolversToSchema({ schema, resolvers })
+
+const contextMiddleware = (req, res, next) => {
+	logger.info('Running middleware')
+	console.log(context)
+	next()
+}
+
+const app = express()
+
+app.use(contextMiddleware)
+
+app.get('/', (req, res) => {
+	res.send({
+		request: 'OK',
+		api: '/api',
+		playground: '/graphql',
+	})
+})
+
+app.use(
+	'/graphql',
+	expressGraphql({
+		schema: schemaWithResolvers,
+		rootValue: global,
+		graphiql: true,
+		context,
+		pretty: true,
+	})
 )
 
-app.listen(4000, () => console.log('Express running on localhost:4000'))
+app.listen(4000)
+logger.info('Server running on localhost:4000')

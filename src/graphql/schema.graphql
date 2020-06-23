@@ -1,22 +1,40 @@
 type Query {
-   getUser: User
-   getUserById(id: ID!): User
+	getUsers: [User]
+	getUserById(id: ID!): User
 }
 
 type Mutation {
-   createUser(input: CreateUserInput): User
-}
-
-input CreateUserInput {
-    first_name: String
-    last_name: String
-    preferred_name: String
-    phone: String
+	createUser(input: CreateUserRequest): CreateOrUpdateUserResponse
+	updateUser(input: UpdateUserRequest): CreateOrUpdateUserResponse
+	deleteUser(id: ID): DeleteUserResponse
 }
 
 type User {
-    first_name: String
-    last_name: String
-    preferred_name: String
-    phone: String
+	id: ID
+	first_name: String
+	last_name: String
+	preferred_name: String
+	phone: String
+}
+
+input CreateUserRequest {
+	first_name: String
+	last_name: String
+	preferred_name: String
+	phone: String
+}
+input UpdateUserRequest {
+	id: ID
+	first_name: String
+	last_name: String
+	preferred_name: String
+	phone: String
+}
+type CreateOrUpdateUserResponse {
+	user: User
+	message: String
+}
+
+type DeleteUserResponse {
+	message: String
 }
