@@ -12,13 +12,8 @@ const schemaWithResolvers = addResolversToSchema({ schema, resolvers })
 const currentUserId = 1
 
 const contextMiddleware = async (req, res, next) => {
-	logger.info('Running middleware with context')
-	// const user = await models.user.findByPk(currentUserId)
-	// if (!user) {
-	// logger.info(`New statement executed by: ${user.dataValues.preferred_name}`)
-	return next()
-	// }
-	// return res.json({ message: 'Not authorized' })
+	logger.info('Middleware')
+	next()
 }
 
 const app = express()

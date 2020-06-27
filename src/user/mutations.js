@@ -1,7 +1,17 @@
+import bcrypt from 'bcrypt'
+
 module.exports = {
 	registerUser: async (_, { input }, { models }) => {
 		try {
-			const data = { ...input, preferred_name: `${input.first_name} ${input.last_name}` }
+			const hashedPassword = await bcrypt.hash(input.password, 10)
+			const data = {
+				first_name: input.first_name,
+				last_name: input.last_name,
+				phone: input.phone,
+				email: input.email,
+				password: hashedPassword,
+				preferred_name: `${input.first_name} ${input.last_name}`,
+			}
 			const user = await models.user.create(data)
 			return {
 				message: 'User created successfully',
