@@ -5,6 +5,18 @@ Basic express GraphQL setup with mock data for testing graphql queries and mutat
 Run development enviroment using yarn
 
 ```
+NODEJS
+EXPRESS
+BABEL
+SEQUELIZE
+EXPRESS-GRAPHQL
+GRAPHQL-TOOLS
+PRETTIER
+ESLINT
+NVM
+```
+
+```
 1. yarn
 2. yarn dev
 3. navigate: http://localhost:4000
@@ -20,10 +32,7 @@ Para que usamos .nvmrc ?
 
 ```
 Para que usamos .babelrc ?
- Para tener la capacidad de usar algunas funciones de JavaScript que todavia no estan en NODEJS.
-
-Que es .babelrc?
-
+Para tener la capacidad de usar algunas funciones de JavaScript que todavia no estan en NODEJS.
 ```
 
 ```

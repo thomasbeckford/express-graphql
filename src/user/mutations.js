@@ -1,12 +1,8 @@
 module.exports = {
-	createUser: async (_, { input }, { models }) => {
+	registerUser: async (_, { input }, { models }) => {
 		try {
-			const user = await models.user.create({
-				first_name: input.first_name,
-				last_name: input.last_name,
-				preferred_name: `${input.first_name} ${input.last_name}`,
-				phone: input.phone,
-			})
+			const data = { ...input, preferred_name: `${input.first_name} ${input.last_name}` }
+			const user = await models.user.create(data)
 			return {
 				message: 'User created successfully',
 				user,
@@ -17,8 +13,14 @@ module.exports = {
 	},
 	updateUser: async (_, { input }, { models }) => {
 		try {
-			const updateUser = await models.user.update(input, { where: { id: input.id } })
-			if (updateUser == 1) return { message: 'User updated successfully' }
+			const queryInstance = await models.user.findByPk(input.id)
+			queryInstance.update(input)
+			if (queryInstance) {
+				return {
+					user: queryInstance.dataValues,
+					message: 'User updated successfully',
+				}
+			}
 			return { message: 'Could not update user' }
 		} catch (e) {
 			return { message: `Error: ${e}` }
@@ -26,9 +28,16 @@ module.exports = {
 	},
 	deleteUser: async (_, { id }, { models }) => {
 		try {
-			const destroyUser = await models.user.destroy({ where: { id: id } })
-			if (destroyUser == 1) return { message: 'User deleted successfully' }
-			return { message: 'Could not delete user' }
+			const queryInstance = await models.user.findByPk(id)
+			if (queryInstance) {
+				await queryInstance.destroy({ returning: true })
+				return {
+					user: queryInstance.dataValues,
+					message: 'User deleted successfully',
+				}
+			} else {
+				return { message: 'Could not delete user' }
+			}
 		} catch (e) {
 			return { message: `Error: ${e}` }
 		}

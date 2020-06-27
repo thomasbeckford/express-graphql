@@ -17,4 +17,8 @@ module.exports = {
 			throw e
 		}
 	},
+	userLogin: async (_, { input }, { models }) => {
+		console.log(input)
+		console.log(models)
+	},
 }
